@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "daniel",
+    "password": "2002",
+    "database": "techrepair_db",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "daniel",
+    "password": "2002",
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "daniel",
+    "password": "2002",
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

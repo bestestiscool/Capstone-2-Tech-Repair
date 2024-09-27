@@ -1,0 +1,28 @@
+Capstone Project Proposal
+For my project, I’m creating a website that will show off my repair videos from YouTube, mostly focusing on phone and laptop repairs. I also want to include tools like a repair cost estimator, which helps users figure out how much common repairs might cost. The main idea is to help people who are interested in repairing their own devices or just want to know more about the repair process.
+
+Target Audience:
+The site is mainly for:
+People who like to fix things on their own (DIY enthusiasts).
+Anyone who’s into tech and wants to learn how to repair their devices.
+People who have broken phones or laptops and want to know how much repairs might cost.
+Possible clients who might want professional repair services.
+
+Where the Data Comes From:
+Most of the content on the site will come from the YouTube API. This will let me pull in my repair videos and show them on the site. For tools like the repair cost estimator, I’ll use my own data about repair costs and possibly integrate other APIs if needed.
+
+Features:
+The website will have a bunch of interactive features like:
+YouTube video gallery where users can watch my repair tutorials.
+A repair cost estimator where users can select their device and problem to get a rough repair cost.
+Video filtering, so users can choose between short videos (YouTube Shorts) and longer repair guides.
+I might also add:
+A device compatibility checker to help people figure out if certain parts will work with their devices.
+A contact form for users who want to reach out for repairs.
+
+Challenges and Approach:
+One challenge I’m expecting is working with multiple APIs at the same time, like YouTube and any others I add. Also, I’ll need to make sure the cost estimator is accurate based on the user’s device and problem. But I think I can handle these by focusing on each feature step-by-step and making sure everything works together smoothly.
+
+Final Thoughts:
+The goal is to make a website that’s easy to use, helpful, and gives people the info they need about device repairs. I’m excited to build out more features as I go along, like possibly adding booking systems or expanding the cost estimator to include more complex repairs.
+

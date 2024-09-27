@@ -1,0 +1,74 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import "animate.css";
+import { getAnimationClass } from "../utils/animationUtils";
+
+const Projects = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    // Fetch project data from backend API connected to PostgreSQL
+    axios
+      .get("http://localhost:5002/api/projects") 
+      .then((response) => {
+        console.log("Projects data:", response.data);
+        setProjects(response.data); // Store the projects in state
+      })
+      .catch((error) => {
+        console.error("Error fetching projects:", error);
+      });
+  }, []);
+
+  return (
+    <div className="container my-5">
+      <div className="text-center mb-4">
+        {/* Animation added to the title and description */}
+        <h2 className={getAnimationClass("bounce")}>My Projects</h2>
+        <p className={getAnimationClass("fadeInUp")}>
+          A collection of my work, including code links and live demos.
+        </p>
+      </div>
+
+      <div className="row">
+        {projects.length === 0 ? (
+          <p className="text-center">No projects found.</p>
+        ) : (
+          projects.map((project, index) => (
+            <div key={index} className="col-md-4 mb-4">
+              <div
+                className={`card h-100 project-card ${getAnimationClass(
+                  "swing"
+                )}`}
+              >
+                <div className="card-body">
+                  <h3 className="card-title">{project.name}</h3>
+                  <p className="card-text">{project.description}</p>
+
+                  <a
+                    href={project.code_link}
+                    className="btn btn-outline-dark mt-3"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FontAwesomeIcon icon={faGithub} /> View Code
+                  </a>
+
+                  {/* Demo link */}
+                  {/* {project.live_demo_link && (
+                    <a href={project.live_demo_link} className="btn btn-outline-secondary mt-3 ml-2" target="_blank" rel="noopener noreferrer">
+                      View Live Demo
+                    </a>
+                  )} */}
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Projects;
