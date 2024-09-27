@@ -36,16 +36,25 @@ app.get('/api/projects', async (req, res) => {
 });
 
 // Route to create a new project using Sequelize
-app.post('/api/projects', async (req, res) => {
+app.get('/api/projects', async (req, res) => {
   try {
-    const { name, description, code_link, live_demo_link } = req.body;
-    const newProject = await Project.create({ name, description, code_link, live_demo_link });  // Use Sequelize to insert a new project
-    res.json(newProject);  // Return the newly created project
+    console.log('Fetching projects from DB...');
+    const projects = await Project.findAll(); 
+    
+    // Log if projects are found
+    if (projects.length > 0) {
+      console.log('Projects fetched:', projects);
+      res.json(projects);  // Send the projects as a response
+    } else {
+      console.log('No projects found in the database.');
+      res.status(404).json({ message: 'No projects found.' });
+    }
   } catch (err) {
-    console.error(err.message);
+    console.error('Error fetching projects:', err.message);
     res.status(500).send('Server Error');
   }
 });
+
 
 // Route to fetch all repair costs
 app.get('/api/repair-costs', async (req, res) => {
@@ -56,6 +65,10 @@ app.get('/api/repair-costs', async (req, res) => {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
+});
+
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API is working!' });
 });
 
 // Define the port
