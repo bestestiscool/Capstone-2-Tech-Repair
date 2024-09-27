@@ -57,7 +57,7 @@ app.get('/api/repair-costs', async (req, res) => {
 });
 
 // Define the port
-const PORT = 5002;
+const PORT = process.env.PORT || 5002;  // Use environment variable PORT if available
 
 // Sync the database and then start the server
 sequelize.sync().then(() => { 
