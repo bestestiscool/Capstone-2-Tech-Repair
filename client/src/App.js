@@ -10,11 +10,6 @@ import ProjectsGithub from './components/Projects-Github';
 const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 const channelId = process.env.REACT_APP_CHANNEL_ID;
 
-console.log(">>>>>>>>>>>>",API_KEY);
-console.log(">>>>>>>>>>>>>",channelId);
-
-// const API_KEY = 'AIzaSyBxM_Hd9rJA4_G91pLzwE0wdL8rAc9i_zI';  // Replace with your actual API key
-// const channelId = 'UChaq0e7KkMnkzWtJcjtf32A';  // Replace with your YouTube Channel ID
 
 function App() { 
 
