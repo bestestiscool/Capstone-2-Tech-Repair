@@ -6,7 +6,6 @@ const { Project, RepairCost, sequelize } = require('./models');  // Import both 
 
 const app = express();
 
-const cors = require('cors');
 app.use(cors({
   origin: '*',  // Allow all origins or restrict to your React app's domain
 })); 
