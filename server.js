@@ -6,7 +6,10 @@ const { Project, RepairCost, sequelize } = require('./models');  // Import both 
 
 const app = express();
 
-app.use(cors());  
+const cors = require('cors');
+app.use(cors({
+  origin: '*',  // Allow all origins or restrict to your React app's domain
+})); 
 app.use(express.json());  // Middleware to parse JSON bodies
 
 // Serve static files from the React app
