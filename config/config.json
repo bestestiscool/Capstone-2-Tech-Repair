@@ -1,25 +1,32 @@
 {
   "development": {
-    "username": "daniel",
-    "password": "2002",
-    "database": "techrepair_db",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": process.env.SUPABASE_DB_USERNAME,  
+    "password": process.env.SUPABASE_DB_PASSWORD,         
+    "database": process.env.SUPABASE_DB_DATABASE,                        
+    "host": process.env.SUPABASE_DB_HOST, 
+    "dialect": "postgres",
+    "port": process.env.SUPABASE_DB_PORT,                                  
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false 
+      }
+    }
   },
   "test": {
-    "username": "daniel",
-    "password": "2002",
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": process.env.SUPABASE_DB_USERNAME,  
+    "password": process.env.SUPABASE_DB_PASSWORD,         
+    "database": "database_test",                        
+    "host": "127.0.0.1", 
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres.yvxbmxxpomdgqyyjdnqm",  
-    "password": "N-yK!5jh@#[J6~x4wnBkq",         
-    "database": "postgres",                        
-    "host": "aws-0-us-east-1.pooler.supabase.com", 
+    "username": process.env.SUPABASE_DB_USERNAME,  
+    "password": process.env.SUPABASE_DB_PASSWORD,         
+    "database": process.env.SUPABASE_DB_DATABASE,                        
+    "host": process.env.SUPABASE_DB_HOST, 
     "dialect": "postgres",
-    "port": 6543,                                  
+    "port": process.env.SUPABASE_DB_PORT,                                  
     "dialectOptions": {
       "ssl": {
         "require": true,

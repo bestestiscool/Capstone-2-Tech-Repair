@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
 const { Project, RepairCost, sequelize } = require('./models');  // Import both Github project model and Repaircost model and  sequelize instance
 
 const app = express();
