@@ -23,7 +23,7 @@ const Projects = () => {
       .catch((error) => {
         console.error("Error fetching projects:", error.response || error.message);;
       });
-  }, [API_URL]);
+  }, []);
 
   return (
     <div className="container my-5">

@@ -2,15 +2,21 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
+
 const { Project, RepairCost, sequelize } = require('./models');  // Import both Github project model and Repaircost model and  sequelize instance
 
 const app = express();
+
+// Middleware
 app.use(cors({
   origin: ['http://localhost:3000', 'https://techrepair-experts.onrender.com'],
 }));
 
 
 app.use(express.json());  // Middleware to parse JSON bodies
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Root route to check if API is running
 app.get('/', (req, res) => {
@@ -52,11 +58,6 @@ app.get('/api/repair-costs', async (req, res) => {
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
 });
-
-
-
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
 
 // All other routes should serve the index.html file from the build
 app.get('*', (req, res) => {
