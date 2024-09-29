@@ -16,7 +16,7 @@ const RepairCostEstimator = () => {
 
   useEffect(() => {
     // Fetch repair costs from the backend when the component loads
-    axios.get('http://localhost:5002/api/repair-costs')
+    axios.get('https://techrepair-experts.onrender.com/api/repair-costs')
       .then(response => {
         setRepairCosts(response.data);  // Store the repair costs in state
       })

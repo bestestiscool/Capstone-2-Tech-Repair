@@ -5,19 +5,12 @@ require('dotenv').config();
 const { Project, RepairCost, sequelize } = require('./models');  // Import both Github project model and Repaircost model and  sequelize instance
 
 const app = express();
-
 app.use(cors({
-  origin: '*',  // Allow all origins or restrict to your React app's domain
-})); 
+  origin: ['http://localhost:3000', 'https://techrepair-experts.onrender.com'],
+}));
+
+
 app.use(express.json());  // Middleware to parse JSON bodies
-
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-// All other routes should serve the index.html file from the build
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
 
 // Root route to check if API is running
 app.get('/', (req, res) => {
@@ -25,17 +18,6 @@ app.get('/', (req, res) => {
 });
 
 // Route to fetch all projects using Sequelize
-app.get('/api/projects', async (req, res) => {
-  try {
-    const projects = await Project.findAll();  // Use Sequelize to fetch all projects
-    res.json(projects);  // Return the projects from the database
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// Route to create a new project using Sequelize
 app.get('/api/projects', async (req, res) => {
   try {
     console.log('Fetching projects from DB...');
@@ -69,6 +51,16 @@ app.get('/api/repair-costs', async (req, res) => {
 
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
+});
+
+
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// All other routes should serve the index.html file from the build
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 // Define the port

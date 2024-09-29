@@ -5,21 +5,25 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import "animate.css";
 import { getAnimationClass } from "../utils/animationUtils";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5002/";
+
 const Projects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     // Fetch project data from backend API connected to PostgreSQL
     axios
-      .get("http://localhost:5002/api/projects") 
+      .get(`${API_URL}/api/projects`) // Use live API URL
       .then((response) => {
-        console.log("Projects data:", response.data);
-        setProjects(response.data); // Store the projects in state
+        console.log("Projects data:", response.data); // Log the response to see its structure
+
+        // Ensure the response is an array, if not set an empty array
+        setProjects(Array.isArray(response.data) ? response.data : []);
       })
       .catch((error) => {
-        console.error("Error fetching projects:", error);
+        console.error("Error fetching projects:", error.response || error.message);;
       });
-  }, []);
+  }, [API_URL]);
 
   return (
     <div className="container my-5">
