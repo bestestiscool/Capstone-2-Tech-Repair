@@ -2,8 +2,32 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
+const { PrismaClient } = require('@prisma/client');
 
-const { Project, RepairCost, sequelize } = require('./models');  // Import models and Sequelize instance
+// Set the database source manually here ('local' or 'supabase')
+const DB_SOURCE = 'local';  // Change to 'supabase' or 'local' when needed 
+
+// Initialize Prisma Clients
+const localPrisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL,  // Local PostgreSQL database connection
+    },
+  },
+});
+
+const supabasePrisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.SUPABASE_DATABASE_URL,  // Supabase PostgreSQL database connection
+    },
+  },
+});
+
+// Select Prisma client based on the manually set DB_SOURCE variable
+function getPrismaClient() {
+  return DB_SOURCE === 'supabase' ? supabasePrisma : localPrisma;
+}
 
 const app = express();
 
@@ -15,15 +39,17 @@ app.use(cors({
 app.use(express.json());  // Middleware to parse JSON bodies
 
 // API Routes
+
+// Get all projects
 app.get('/api/projects', async (req, res) => {
+  const prisma = getPrismaClient();  // Get the correct Prisma client
+
   try {
-    console.log('Fetching projects from DB...');
-    const projects = await Project.findAll();
+    console.log(`Fetching projects from ${DB_SOURCE} DB...`);
+    const projects = await prisma.project.findMany();
     if (projects.length > 0) {
-      console.log('Projects fetched:', projects);
-      res.json(projects);  // Send the projects as a response
+      res.json(projects);
     } else {
-      console.log('No projects found in the database.');
       res.status(404).json({ message: 'No projects found.' });
     }
   } catch (err) {
@@ -32,9 +58,13 @@ app.get('/api/projects', async (req, res) => {
   }
 });
 
+// Get all repair costs
 app.get('/api/repair-costs', async (req, res) => {
+  const prisma = getPrismaClient();  // Get the correct Prisma client
+
   try {
-    const repairCosts = await RepairCost.findAll();  // Fetch all repair costs from the database
+    console.log(`Fetching repair costs from ${DB_SOURCE} DB...`);
+    const repairCosts = await prisma.repairCost.findMany();
     res.json(repairCosts);
   } catch (err) {
     console.error('Error fetching repair costs:', err.message);
@@ -58,11 +88,7 @@ app.get('*', (req, res) => {
 // Define the port
 const PORT = process.env.PORT || 5002;  // Use environment variable PORT if available
 
-// Sync the database and then start the server
-sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-}).catch(err => {
-  console.error('Unable to sync the database:', err);
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT} using ${DB_SOURCE} database`);
 });

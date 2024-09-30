@@ -21,7 +21,7 @@ const Projects = () => {
         setProjects(Array.isArray(response.data) ? response.data : []);
       })
       .catch((error) => {
-        console.error("Error fetching projects:", error.response || error.message);;
+        console.error("Error fetching projects:", error.response || error.message);
       });
   }, []);
 
@@ -39,8 +39,8 @@ const Projects = () => {
         {projects.length === 0 ? (
           <p className="text-center">No projects found.</p>
         ) : (
-          projects.map((project, index) => (
-            <div key={index} className="col-md-4 mb-4">
+          projects.map((project) => (
+            <div key={project.id} className="col-md-4 mb-4"> {/* Use project.id as key */}
               <div
                 className={`card h-100 project-card ${getAnimationClass(
                   "swing"

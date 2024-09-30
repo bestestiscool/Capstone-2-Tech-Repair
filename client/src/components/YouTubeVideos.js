@@ -1,34 +1,35 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import useFetchVideos from "../hooks/useFetchVideos";
-import usePagination from "../hooks/usePagination";
-import useSearch from "../hooks/useSearch";
-import { formatDuration } from '../utils/formatDuration';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import React, { useState } from 'react';  // Importing useState from React
+import { Link } from 'react-router-dom';  // Importing Link for navigation
+import useFetchVideos from '../hooks/useFetchVideos';  // Custom hook to fetch videos
+import useSearch from '../hooks/useSearch';  // Custom hook for search functionality
+import usePagination from '../hooks/usePagination';  // Custom hook for pagination
+import { formatDuration } from '../utils/formatDuration';  // Utility function to format video durations
 
 const YouTubeVideos = ({ API_KEY, channelId, videoType }) => {
-  const [showSearch, setShowSearch] = useState(false);  // Control when the search bar is shown
-  const videos = useFetchVideos(API_KEY, channelId, videoType);
-  
-  // Use the custom search hook
-  const {
-    filteredItems: filteredVideos,
-    searchQuery,
-    setSearchQuery,
-  } = useSearch(videos, "title");
+  const [showSearch, setShowSearch] = useState(false);  // State to toggle search bar visibility
+  const { videos, error, loading } = useFetchVideos(API_KEY, channelId, videoType);  // Fetching videos using custom hook
 
-  // Use the custom pagination hook
-  const videosPerPage = 12;  
-  const {
-    currentItems: currentVideos,
-    paginate,
-    totalPages,
-    currentPage,
-  } = usePagination(filteredVideos, videosPerPage);
+  const { filteredItems: filteredVideos, searchQuery, setSearchQuery } = useSearch(videos, "title");  // Using custom search hook
+
+  const videosPerPage = 12;
+  const { currentItems: currentVideos, paginate, totalPages, currentPage } = usePagination(filteredVideos, videosPerPage);  // Using custom pagination hook
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <p className="text-center text-danger">{error}</p>;  // Display error message
+  }
 
   return (
     <div className="container">
-      {/* Search button */}
       <button className="btn btn-outline-primary mb-3" onClick={() => setShowSearch(!showSearch)}>
         {showSearch ? "Close Search" : "Search Videos"}
       </button>
@@ -46,16 +47,15 @@ const YouTubeVideos = ({ API_KEY, channelId, videoType }) => {
         </div>
       )}
 
-      {/* Render the videos in a 3x4 grid layout */}
+      {/* Render the videos in a grid layout */}
       <div className="row">
         {currentVideos.length === 0 && <p>No videos match your search</p>}
         {currentVideos.map((video) => {
           const videoId = video.id.videoId || video.id;
-          const duration = formatDuration(video.contentDetails.duration);
-          
+          const duration = formatDuration(video.contentDetails.duration);  // Format duration
+
           const durationParts = duration.split(':');
           let seconds = 0;
-
           if (durationParts.length === 3) {
             seconds = parseInt(durationParts[0]) * 3600 + parseInt(durationParts[1]) * 60 + parseInt(durationParts[2]);
           } else if (durationParts.length === 2) {
@@ -83,7 +83,7 @@ const YouTubeVideos = ({ API_KEY, channelId, videoType }) => {
                 </div>
                 <div className="card-body">
                   <p className="card-text">Duration: {duration}</p>
-                  <p className="card-text">{isShort ? "Youtube Shorts" : "Long Video"}</p>
+                  <p className="card-text">{isShort ? "YouTube Shorts" : "Long Video"}</p>
                 </div>
               </div>
             </div>

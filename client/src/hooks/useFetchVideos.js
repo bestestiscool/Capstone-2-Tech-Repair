@@ -3,8 +3,14 @@ import axios from "axios";
 
 const useFetchVideos = (API_KEY, channelId, videoType) => {
   const [videos, setVideos] = useState([]);
+  const [error, setError] = useState(null); // Error state for API errors
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
+    // Reset error state before making the request
+    setError(null);
+    setLoading(true);
+
     // Fetch the list of videos from the channel
     axios
       .get(
@@ -28,11 +34,19 @@ const useFetchVideos = (API_KEY, channelId, videoType) => {
               if (videoType === "long") return duration > 60;
               return true; // Include all videos when videoType is 'all'
             });
-            setVideos(filteredVideos);  // Set the filtered videos
+            setVideos(filteredVideos); // Set the filtered videos
+            setLoading(false); // Stop loading
+          })
+          .catch((error) => {
+            console.error("Error fetching video details:", error);
+            setError("Failed to fetch video details. Please try again later.");
+            setLoading(false); // Stop loading
           });
       })
       .catch((error) => {
-        console.error("Error fetching YouTube videos:", error);
+        console.error("Error fetching YouTube playlist:", error);
+        setError("Failed to fetch videos from YouTube. Please try again later.");
+        setLoading(false); // Stop loading
       });
   }, [API_KEY, channelId, videoType]);
 
@@ -44,7 +58,7 @@ const useFetchVideos = (API_KEY, channelId, videoType) => {
     return minutes * 60 + seconds;
   };
 
-  return videos;
+  return { videos, error, loading }; // Return videos, error, and loading states
 };
 
-export default useFetchVideos
+export default useFetchVideos;
