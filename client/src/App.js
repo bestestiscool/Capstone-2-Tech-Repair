@@ -25,8 +25,6 @@ function App() {
             <Route path="/video/:id" element={<VideoDetails API_KEY={API_KEY} />} />
             <Route path="/repair-cost-estimator" element={<ProtectedRoute component={RepairCostEstimator} />} />
             <Route path="/portfolio" element={<ProjectsGithub />} />
-            <Route path="/login" element={<Login />} />  {/* Login Route */}
-            <Route path="/register" element={<Register />} />  {/* Register Route */}
           </Routes>
         </header>
       </div>
