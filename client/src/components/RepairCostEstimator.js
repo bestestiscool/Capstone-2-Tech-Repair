@@ -12,8 +12,8 @@ const API_URL = isSupabase
   ? process.env.REACT_APP_SUPABASE_API_URL // Supabase API URL
   : process.env.REACT_APP_LOCAL_API_URL;   // Local API URL
 
-console.log("USE_SUPABASE:", process.env.REACT_APP_USE_SUPABASE);
-console.log("API_URL:", API_URL);
+// console.log("USE_SUPABASE:", process.env.REACT_APP_USE_SUPABASE);
+// console.log("API_URL:", API_URL);
 
 const RepairCostEstimator = () => {
   const [step, setStep] = useState(0);  // Step in the multi-step form 
