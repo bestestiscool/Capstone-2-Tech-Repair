@@ -1,14 +1,14 @@
 {
   "name": "capstone-project-two-c957e22189a3499eb30d05071e5821a4",
   "version": "1.0.0",
-  "description": "We have broken down the Capstone Project into easy-to-follow steps. Each step of the capstone contains a link with instructions for that step. You may notice this secondCapstone follows a similar pattern to your first Capstone, however, there are key differences.",
+  "description": "capstone 2 tech repair project",
   "main": "server.js",
   "scripts": {
   "start": "node server.js",
-  "build": "./render-build.sh",
-  "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
-  "seed": "node prisma/seed.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cd client && npm install && npm run build",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
+    "seed": "node prisma/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

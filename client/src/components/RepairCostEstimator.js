@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'animate.css';
-import 'bootstrap/dist/css/bootstrap.min.css';  
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMobileAlt, faLaptop, faTools, faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import Select from 'react-select';
+
+// Choose API URL based on the environment variable
+const isSupabase = process.env.REACT_APP_USE_SUPABASE === 'true';
+const API_URL = isSupabase
+  ? process.env.REACT_APP_SUPABASE_API_URL
+  : process.env.REACT_APP_LOCAL_API_URL;
+
+console.log("USE_SUPABASE:", process.env.REACT_APP_USE_SUPABASE);
+console.log("API_URL:", API_URL);
 
 const RepairCostEstimator = () => {
   const [step, setStep] = useState(0);  // Step in the multi-step form 
@@ -12,33 +22,36 @@ const RepairCostEstimator = () => {
   const [problem, setProblem] = useState('');
   const [estimatedCost, setEstimatedCost] = useState(null);
   const [repairCosts, setRepairCosts] = useState([]);  // Store repair costs fetched from the database
-
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5002';  // Use live or local API URL
+  const [loading, setLoading] = useState(true);  // Loading state
+  const [error, setError] = useState(null);  // Error state
 
   useEffect(() => {
     // Fetch repair costs from the backend API when the component loads
     axios
       .get(`${API_URL}/api/repair-costs`)
       .then(response => {
+        console.log("Fetched Repair Costs:", response.data);  // Add this log
         setRepairCosts(Array.isArray(response.data) ? response.data : []);
       })
       .catch(error => {
         console.error('Error fetching repair costs:', error);
+        setError('Failed to fetch repair costs.');
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, [API_URL]);
+  }, []);
 
-  // Handle form steps and reset estimated cost on step change
   const handleNextStep = () => {
     setStep(step + 1);
     setEstimatedCost(null);  // Reset estimate when moving forward to the next step
   };
-  
+
   const handlePreviousStep = () => {
     setStep(step - 1);
     setEstimatedCost(null);  // Reset estimate when moving back to make changes
   };
 
-  // Reset form for a new estimate
   const resetForm = () => {
     setStep(0);
     setDeviceType('');
@@ -47,49 +60,56 @@ const RepairCostEstimator = () => {
     setEstimatedCost(null);
   };
 
-  // Calculate the estimate based on the user's selections
   const calculateEstimate = () => {
     const selectedCost = repairCosts.find(cost =>
-      cost.device_type === deviceType && cost.model === model && cost.repair_type === problem
+      cost.deviceType === deviceType && cost.model === model && cost.repair_type === problem // Use 'deviceType' instead of 'device_type'
     );
     setEstimatedCost(selectedCost ? selectedCost.cost : 'Price not available');
   };
+  
 
-  // Save the estimate if the user is authenticated
   const saveEstimate = () => {
+    if (!deviceType || !model || !problem || !estimatedCost) {
+      alert('Please complete the form before saving the estimate.');
+      return;
+    }
     axios.post(
-      `${API_URL}/api/save-estimate`, 
-      { deviceType, model, problem, estimatedCost }, 
+      `${API_URL}/api/save-estimate`,
+      { deviceType, model, problem, estimatedCost },
       { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
     )
     .then(() => alert('Estimate saved successfully!'))
     .catch((error) => console.error('Error saving estimate:', error));
   };
 
-  // Get the available models for the selected device type
   const getAvailableModels = () => {
     const models = repairCosts
-      .filter(cost => cost.device_type === deviceType)
+      .filter(cost => cost.deviceType === deviceType) // Ensure we're using 'deviceType'
       .map(cost => cost.model);
-    return [...new Set(models)];  // Remove duplicates
+    return [...new Set(models)].sort();
   };
 
-  // Get the available problems for the selected model
   const getAvailableProblems = () => {
     const problems = repairCosts
-      .filter(cost => cost.device_type === deviceType && cost.model === model)
-      .map(cost => cost.repair_type);
-    return [...new Set(problems)];  // Remove duplicates
+      .filter(cost => cost.deviceType === deviceType && cost.model === model) // Using 'deviceType' and 'model'
+      .map(cost => cost.repairType); // Use 'repairType' instead of 'repair_type'
+    return [...new Set(problems)].sort(); // Remove duplicates and sort alphabetically
   };
+  
+  
 
-  // Progress bar percentage calculation
-  const getProgress = () => ((step + 1) / 4) * 100;  
+  const getProgress = () => ((step + 1) / 4) * 100;
+
+  if (loading) {
+    return <p className="text-center">Loading repair costs...</p>;
+  }
 
   return (
     <div className="container my-5 animate__animated animate__fadeIn">
       <h2 className="text-center mb-4">Repair Cost Estimator</h2>
 
-      {/* Progress Bar */}
+      {error && <p className="text-danger text-center">{error}</p>}
+
       <div className="progress mb-4">
         <div
           className="progress-bar progress-bar-striped progress-bar-animated bg-info"
@@ -106,12 +126,16 @@ const RepairCostEstimator = () => {
           <div className="text-center">
             <FontAwesomeIcon icon={faMobileAlt} size="4x" className="mb-3" />
             <h3>Select Device Type</h3>
-            <select className="form-select my-3" value={deviceType} onChange={(e) => setDeviceType(e.target.value)}>
-              <option value="">Select Device</option>
-              {[...new Set(repairCosts.map(cost => cost.device_type))].map((device) => (
-                <option key={device} value={device}>{device}</option>
-              ))}
-            </select>
+            <Select
+              options={[...new Set(repairCosts.map(cost => cost.deviceType))].map(device => ({
+                label: device,
+                value: device
+              }))}
+              value={deviceType ? { label: deviceType, value: deviceType } : null}
+              onChange={selectedOption => setDeviceType(selectedOption.value)}
+              placeholder="Select Device"
+              isSearchable={true}
+            />
             <button className="btn btn-primary" onClick={handleNextStep} disabled={!deviceType}>Next</button>
           </div>
         )}
@@ -120,12 +144,16 @@ const RepairCostEstimator = () => {
           <div className="text-center">
             <FontAwesomeIcon icon={faLaptop} size="4x" className="mb-3" />
             <h3>Select Model</h3>
-            <select className="form-select my-3" value={model} onChange={(e) => setModel(e.target.value)}>
-              <option value="">Select Model</option>
-              {getAvailableModels().map((model) => (
-                <option key={model} value={model}>{model}</option>
-              ))}
-            </select>
+            <Select
+              options={getAvailableModels().map(model => ({
+                label: model,
+                value: model
+              }))}
+              value={model ? { label: model, value: model } : null}
+              onChange={selectedOption => setModel(selectedOption.value)}
+              placeholder="Select Model"
+              isSearchable={true}
+            />
             <button className="btn btn-secondary me-2" onClick={handlePreviousStep}>Back</button>
             <button className="btn btn-primary" onClick={handleNextStep} disabled={!model}>Next</button>
           </div>
@@ -135,12 +163,16 @@ const RepairCostEstimator = () => {
           <div className="text-center">
             <FontAwesomeIcon icon={faTools} size="4x" className="mb-3" />
             <h3>Select Problem</h3>
-            <select className="form-select my-3" value={problem} onChange={(e) => setProblem(e.target.value)}>
-              <option value="">Select Problem</option>
-              {getAvailableProblems().map((problem) => (
-                <option key={problem} value={problem}>{problem}</option>
-              ))}
-            </select>
+            <Select
+              options={getAvailableProblems().map(problem => ({
+                label: problem,
+                value: problem
+              }))}
+              value={problem ? { label: problem, value: problem } : null}
+              onChange={selectedOption => setProblem(selectedOption.value)}
+              placeholder="Select Problem"
+              isSearchable={true}
+            />
             <button className="btn btn-secondary me-2" onClick={handlePreviousStep}>Back</button>
             <button className="btn btn-primary" onClick={handleNextStep} disabled={!problem}>Next</button>
           </div>
@@ -161,10 +193,10 @@ const RepairCostEstimator = () => {
         {estimatedCost && step === 3 && (
           <div className="text-center mt-4 animate__animated animate__fadeInUp">
             <h3 className="fw-bold">Estimated Cost: {estimatedCost === 'Price not available' ? estimatedCost : `$${estimatedCost}`}</h3>
-            <button className="btn btn-info mt-3" onClick={resetForm}>New Estimate</button> 
+            <button className="btn btn-info mt-3" onClick={resetForm}>New Estimate</button>
             {localStorage.getItem('token') && (
-              <button 
-                className="btn btn-success mt-3 ms-3" 
+              <button
+                className="btn btn-success mt-3 ms-3"
                 onClick={saveEstimate}
               >
                 Save Estimate

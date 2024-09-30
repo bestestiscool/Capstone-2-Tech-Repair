@@ -85,8 +85,19 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
+// Graceful shutdown of Prisma on server close
+async function gracefulShutdown() {
+  console.log('Shutting down server...');
+  await localPrisma.$disconnect();
+  await supabasePrisma.$disconnect();
+  process.exit(0);
+}
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
+
 // Define the port
-const PORT = process.env.PORT || 5002;  // Use environment variable PORT if available
+const PORT = process.env.PORT || 5000;  // Use environment variable PORT if available
 
 // Start the server
 app.listen(PORT, () => {

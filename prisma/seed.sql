@@ -12,13 +12,15 @@ CREATE TABLE repair_costs (
   estimated_time VARCHAR(50) NOT NULL
 );
 
--- Create the projects table
+-- Create the projects table with createdAt and updatedAt columns
 CREATE TABLE projects (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   description TEXT,
   code_link VARCHAR(255),
-  live_demo_link VARCHAR(255)
+  live_demo_link VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Seed data for repair_costs table
@@ -68,9 +70,8 @@ VALUES
   ('Laptop', 'Lenovo ThinkPad X1 Carbon', 'Cracked Screen', 520, '1-2 days'),
   ('Laptop', 'Lenovo ThinkPad X1 Carbon', 'Battery Issue', 175, '1-2 hours');
 
--- Seed data for projects table
-INSERT INTO projects (name, description, code_link, live_demo_link)
+-- Seed data for projects table with createdAt and updatedAt fields
+INSERT INTO projects (name, description, code_link, live_demo_link, created_at, updated_at)
 VALUES
-  ('First Project', 'This is the first sample project created using a seeder', 'https://github.com/bestestiscool/Unit_42_Hatchaway_Snack_or_booze', 'https://first-project-demo.com'),
-  ('Second Project', 'This is the second sample project created using a seeder', 'https://github.com/bestestiscool/Unit_41.3_React_History_exercise_jokes', 'https://second-project-demo.com')
-  
+  ('First Project', 'This is the first sample project created using a seeder', 'https://github.com/bestestiscool/Unit_42_Hatchaway_Snack_or_booze', 'https://first-project-demo.com', NOW(), NOW()),
+  ('Second Project', 'This is the second sample project created using a seeder', 'https://github.com/bestestiscool/Unit_41.3_React_History_exercise_jokes', 'https://second-project-demo.com', NOW(), NOW());

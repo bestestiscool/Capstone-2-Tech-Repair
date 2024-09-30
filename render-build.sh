@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-
-# Navigate to client directory and build the React app
-cd client
+# Install backend dependencies
 npm install
+# Build the React frontend
 npm run build
-
-# Navigate back to the root directory to install backend dependencies
+# Change directory to the React app and install dependencies
+cd client && npm install && npm run build
+# Return to the root directory
 cd ..
-npm install

@@ -5,7 +5,14 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import "animate.css";
 import { getAnimationClass } from "../utils/animationUtils";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5002/";
+// Choose API URL based on the environment variable
+const isSupabase = process.env.REACT_APP_USE_SUPABASE === 'false';
+const API_URL = isSupabase
+  ? process.env.REACT_APP_SUPABASE_API_URL
+  : process.env.REACT_APP_LOCAL_API_URL;
+
+console.log("USE_SUPABASE:", process.env.REACT_APP_USE_SUPABASE);
+console.log("API_URL:", API_URL);
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
