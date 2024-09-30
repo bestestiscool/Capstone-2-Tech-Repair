@@ -4,8 +4,8 @@ const path = require('path');
 require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
 
-// Set the database source manually here ('local' or 'supabase')
-const DB_SOURCE = 'local';  // Change to 'supabase' or 'local' when needed 
+// Set the database source based on environment variables (default to local)
+const DB_SOURCE = process.env.DB_SOURCE || 'local';
 
 // Initialize Prisma Clients
 const localPrisma = new PrismaClient({
@@ -24,7 +24,7 @@ const supabasePrisma = new PrismaClient({
   },
 });
 
-// Select Prisma client based on the manually set DB_SOURCE variable
+// Select Prisma client based on the environment or DB_SOURCE variable
 function getPrismaClient() {
   return DB_SOURCE === 'supabase' ? supabasePrisma : localPrisma;
 }
@@ -47,14 +47,13 @@ app.get('/api/projects', async (req, res) => {
   try {
     console.log(`Fetching projects from ${DB_SOURCE} DB...`);
     const projects = await prisma.project.findMany();
-    if (projects.length > 0) {
-      res.json(projects);
-    } else {
-      res.status(404).json({ message: 'No projects found.' });
+    if (!projects.length) {
+      return res.status(404).json({ message: 'No projects found.' });
     }
+    res.json(projects);
   } catch (err) {
     console.error('Error fetching projects:', err.message);
-    res.status(500).send('Server Error');
+    return res.status(500).json({ error: 'Failed to fetch projects', details: err.message });
   }
 });
 
@@ -65,10 +64,13 @@ app.get('/api/repair-costs', async (req, res) => {
   try {
     console.log(`Fetching repair costs from ${DB_SOURCE} DB...`);
     const repairCosts = await prisma.repairCost.findMany();
+    if (!repairCosts.length) {
+      return res.status(404).json({ message: 'No repair costs found.' });
+    }
     res.json(repairCosts);
   } catch (err) {
     console.error('Error fetching repair costs:', err.message);
-    res.status(500).send('Server Error');
+    return res.status(500).json({ error: 'Failed to fetch repair costs', details: err.message });
   }
 });
 
@@ -88,8 +90,11 @@ app.get('*', (req, res) => {
 // Graceful shutdown of Prisma on server close
 async function gracefulShutdown() {
   console.log('Shutting down server...');
-  await localPrisma.$disconnect();
-  await supabasePrisma.$disconnect();
+  if (DB_SOURCE === 'local') {
+    await localPrisma.$disconnect();
+  } else if (DB_SOURCE === 'supabase') {
+    await supabasePrisma.$disconnect();
+  }
   process.exit(0);
 }
 

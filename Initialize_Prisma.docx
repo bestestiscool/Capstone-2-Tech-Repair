@@ -1,0 +1,13 @@
+Run the Command to Restore the Database: In your terminal, navigate to the directory where the backup.sql file is located, and run the following command:
+
+bash
+
+psql -h your_supabase_host -p your_supabase_port -U your_supabase_user -d your_supabase_db -f backup.sql
+
+Replace your_supabase_host, your_supabase_port, your_supabase_user, and your_supabase_db with the values from the Supabase dashboard.
+Enter your password when prompted.
+
+
+
+To use the local database, set DB_SOURCE=local in your .env file (or in your local environment variables).
+To use Supabase, set DB_SOURCE=supabase in your production environment variables.

@@ -6,7 +6,7 @@ import "animate.css";
 import { getAnimationClass } from "../utils/animationUtils";
 
 // Choose API URL based on the environment variable
-const isSupabase = process.env.REACT_APP_USE_SUPABASE === 'false';
+const isSupabase = process.env.REACT_APP_USE_SUPABASE === 'true';
 const API_URL = isSupabase
   ? process.env.REACT_APP_SUPABASE_API_URL
   : process.env.REACT_APP_LOCAL_API_URL;
