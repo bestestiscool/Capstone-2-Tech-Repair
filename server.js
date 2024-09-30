@@ -49,16 +49,11 @@ app.use(cors({
 }));
 app.use(express.json());  // Middleware to parse JSON bodies
 
-// Helper function to clear prepared statements
-async function clearPreparedStatements() {
-  await prisma.$executeRaw`DEALLOCATE ALL`;
-}
 // API Routes
 
 // Get all projects
 app.get('/api/projects', async (req, res) => {
   try {
-    await clearPreparedStatements(); // Clear prepared statements before the query
     const projects = await prisma.project.findMany();
     console.log("Projects from DB:", projects);
     if (!projects.length) {
@@ -71,11 +66,9 @@ app.get('/api/projects', async (req, res) => {
   }
 });
 
-
 // Get all repair costs
 app.get('/api/repair-costs', async (req, res) => {
   try {
-    await clearPreparedStatements(); // Clear prepared statements before the query
     const repairCosts = await prisma.repairCost.findMany();
     if (!repairCosts.length) {
       return res.status(404).json({ message: 'No repair costs found.' });
