@@ -62,10 +62,11 @@ const RepairCostEstimator = () => {
 
   const calculateEstimate = () => {
     const selectedCost = repairCosts.find(cost =>
-      cost.deviceType === deviceType && cost.model === model && cost.repair_type === problem // Use 'deviceType' instead of 'device_type'
+      cost.deviceType === deviceType && cost.model === model && cost.repairType === problem // Correct field names
     );
     setEstimatedCost(selectedCost ? selectedCost.cost : 'Price not available');
   };
+  
   
 
   // const saveEstimate = () => {
