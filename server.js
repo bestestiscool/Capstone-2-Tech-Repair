@@ -7,11 +7,11 @@ const { PrismaClient } = require('@prisma/client');
 // Set the database source based on environment variables (default to local)
 const DB_SOURCE = process.env.DB_SOURCE || 'local';
 
-// Initialize Prisma Clients
+// Initialize Prisma Clients with better error handling and logging
 const localPrisma = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.DATABASE_URL,  // Local PostgreSQL database connection
+      url: process.env.DATABASE_URL || '',  // Fallback to empty string if not set
     },
   },
 });
@@ -19,14 +19,26 @@ const localPrisma = new PrismaClient({
 const supabasePrisma = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.SUPABASE_DATABASE_URL,  // Supabase PostgreSQL database connection
+      url: process.env.SUPABASE_DATABASE_URL || '',  // Fallback to empty string if not set
     },
   },
 });
 
-// Select Prisma client based on the environment or DB_SOURCE variable
+// Function to get the correct Prisma Client based on DB_SOURCE
 function getPrismaClient() {
   return DB_SOURCE === 'supabase' ? supabasePrisma : localPrisma;
+}
+
+// Log the selected database and connection string for debugging
+const prisma = getPrismaClient();
+console.log(`Using ${DB_SOURCE} database with connection string: ${prisma.$connect ? process.env.SUPABASE_DATABASE_URL : process.env.DATABASE_URL}`);
+
+// Handle invalid URLs for better error reporting
+if (!process.env.DATABASE_URL && DB_SOURCE === 'local') {
+  console.error("Error: No DATABASE_URL set for local database.");
+}
+if (!process.env.SUPABASE_DATABASE_URL && DB_SOURCE === 'supabase') {
+  console.error("Error: No SUPABASE_DATABASE_URL set for Supabase database.");
 }
 
 const app = express();
@@ -35,17 +47,13 @@ const app = express();
 app.use(cors({
   origin: ['http://localhost:3000', 'https://techrepair-experts.onrender.com'],
 }));
-
 app.use(express.json());  // Middleware to parse JSON bodies
 
 // API Routes
 
 // Get all projects
 app.get('/api/projects', async (req, res) => {
-  const prisma = getPrismaClient();  // Get the correct Prisma client
-
   try {
-    console.log(`Fetching projects from ${DB_SOURCE} DB...`);
     const projects = await prisma.project.findMany();
     if (!projects.length) {
       return res.status(404).json({ message: 'No projects found.' });
@@ -59,10 +67,7 @@ app.get('/api/projects', async (req, res) => {
 
 // Get all repair costs
 app.get('/api/repair-costs', async (req, res) => {
-  const prisma = getPrismaClient();  // Get the correct Prisma client
-
   try {
-    console.log(`Fetching repair costs from ${DB_SOURCE} DB...`);
     const repairCosts = await prisma.repairCost.findMany();
     if (!repairCosts.length) {
       return res.status(404).json({ message: 'No repair costs found.' });
@@ -90,11 +95,7 @@ app.get('*', (req, res) => {
 // Graceful shutdown of Prisma on server close
 async function gracefulShutdown() {
   console.log('Shutting down server...');
-  if (DB_SOURCE === 'local') {
-    await localPrisma.$disconnect();
-  } else if (DB_SOURCE === 'supabase') {
-    await supabasePrisma.$disconnect();
-  }
+  await prisma.$disconnect();
   process.exit(0);
 }
 
