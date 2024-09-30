@@ -6,8 +6,8 @@ import VideoDetails from './components/VideoDetails';
 import RepairCostEstimator from './components/RepairCostEstimator';
 import ProjectsGithub from './components/Projects-Github';
 import ProtectedRoute from './components/ProtectedRoute';
-import Login from './components/Login';  // NEW IMPORT
-import Register from './components/Register';  // NEW IMPORT
+// import Login from './components/Login';  // NEW IMPORT
+// import Register from './components/Register';  // NEW IMPORT
 
 const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 const channelId = process.env.REACT_APP_CHANNEL_ID;
