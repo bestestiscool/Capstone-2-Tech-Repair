@@ -30,7 +30,7 @@ const RepairCostEstimator = () => {
     axios
       .get(`${API_URL}/api/repair-costs`)
       .then(response => {
-        console.log("Fetched Repair Costs:", response.data);  // Add this log
+        // console.log("Fetched Repair Costs:", response.data);  // Add this log
         setRepairCosts(Array.isArray(response.data) ? response.data : []);
       })
       .catch(error => {
