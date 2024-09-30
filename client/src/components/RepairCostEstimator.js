@@ -194,14 +194,6 @@ const RepairCostEstimator = () => {
           <div className="text-center mt-4 animate__animated animate__fadeInUp">
             <h3 className="fw-bold">Estimated Cost: {estimatedCost === 'Price not available' ? estimatedCost : `$${estimatedCost}`}</h3>
             <button className="btn btn-info mt-3" onClick={resetForm}>New Estimate</button>
-            {localStorage.getItem('token') && (
-              <button
-                className="btn btn-success mt-3 ms-3"
-                onClick={saveEstimate}
-              >
-                Save Estimate
-              </button>
-            )}
           </div>
         )}
       </div>
