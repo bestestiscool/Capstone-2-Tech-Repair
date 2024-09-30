@@ -9,8 +9,8 @@ import Select from 'react-select';
 // Choose API URL based on the environment variable
 const isSupabase = process.env.REACT_APP_USE_SUPABASE === 'true';
 const API_URL = isSupabase
-  ? process.env.REACT_APP_SUPABASE_API_URL
-  : process.env.REACT_APP_LOCAL_API_URL;
+  ? process.env.REACT_APP_SUPABASE_API_URL // Supabase API URL
+  : process.env.REACT_APP_LOCAL_API_URL;   // Local API URL
 
 console.log("USE_SUPABASE:", process.env.REACT_APP_USE_SUPABASE);
 console.log("API_URL:", API_URL);
