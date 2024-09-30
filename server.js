@@ -55,6 +55,7 @@ app.use(express.json());  // Middleware to parse JSON bodies
 app.get('/api/projects', async (req, res) => {
   try {
     const projects = await prisma.project.findMany();
+    console.log("Projects from DB:", projects);
     if (!projects.length) {
       return res.status(404).json({ message: 'No projects found.' });
     }

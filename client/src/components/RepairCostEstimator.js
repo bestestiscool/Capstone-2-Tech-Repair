@@ -68,19 +68,19 @@ const RepairCostEstimator = () => {
   };
   
 
-  const saveEstimate = () => {
-    if (!deviceType || !model || !problem || !estimatedCost) {
-      alert('Please complete the form before saving the estimate.');
-      return;
-    }
-    axios.post(
-      `${API_URL}/api/save-estimate`,
-      { deviceType, model, problem, estimatedCost },
-      { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-    )
-    .then(() => alert('Estimate saved successfully!'))
-    .catch((error) => console.error('Error saving estimate:', error));
-  };
+  // const saveEstimate = () => {
+  //   if (!deviceType || !model || !problem || !estimatedCost) {
+  //     alert('Please complete the form before saving the estimate.');
+  //     return;
+  //   }
+  //   axios.post(
+  //     `${API_URL}/api/save-estimate`,
+  //     { deviceType, model, problem, estimatedCost },
+  //     { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+  //   )
+  //   .then(() => alert('Estimate saved successfully!'))
+  //   .catch((error) => console.error('Error saving estimate:', error));
+  // };
 
   const getAvailableModels = () => {
     const models = repairCosts
