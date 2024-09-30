@@ -51,9 +51,8 @@ app.use(express.json());  // Middleware to parse JSON bodies
 
 // Helper function to clear prepared statements
 async function clearPreparedStatements() {
-  await prisma.$executeRaw('DEALLOCATE ALL');
+  await prisma.$executeRaw`DEALLOCATE ALL`;
 }
-
 // API Routes
 
 // Get all projects
@@ -71,6 +70,7 @@ app.get('/api/projects', async (req, res) => {
     return res.status(500).json({ error: 'Failed to fetch projects', details: err.message });
   }
 });
+
 
 // Get all repair costs
 app.get('/api/repair-costs', async (req, res) => {
