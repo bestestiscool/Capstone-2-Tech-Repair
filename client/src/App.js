@@ -6,6 +6,7 @@ import YouTubeVideos from './components/YouTubeVideos';
 import VideoDetails from './components/VideoDetails';
 import RepairCostEstimator from './components/RepairCostEstimator';
 import ProjectsGithub from './components/Projects-Github';
+import AboutUs from './components/AboutUs';
 
 const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 const channelId = process.env.REACT_APP_CHANNEL_ID;
@@ -24,6 +25,7 @@ function App() {
             <Route path="/video/:id" element={<VideoDetails API_KEY={API_KEY} />} />
             <Route path="/repair-cost-estimator" element={<RepairCostEstimator />} />
             <Route path="/portfolio" element={<ProjectsGithub />} />
+            <Route path="/AboutUs" element={<AboutUs />} />
           </Routes>
         </header>
       </div>
