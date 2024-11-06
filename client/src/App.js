@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <Navbar /> */}
+        <Navbar />
         <header className="App-header">
           <Routes>
             <Route path="/" element={<HomePage API_KEY={API_KEY} channelId={channelId} videoType="all" />} />
