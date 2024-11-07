@@ -205,19 +205,34 @@ a:focus,
 }
 /* Header Section */
 .intro {
-  display: table;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  height: 100vh; /* Full viewport height */
   padding: 0;
   background: url(../img/intro-bg.jpg) center center no-repeat;
   background-color: #e5e5e5;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
   background-size: cover;
-  -o-background-size: cover;
+  margin: 200;
+  overflow: hidden; /* Prevent scrolling */
 }
+
 .intro .overlay {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2); /* Darker overlay for better contrast */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.intro-text {
+  text-align: center;
+  max-width: 800px; /* Optional: limits text width */
+  color: #fff;
+}
+
 .intro h1 {
   font-family: "Raleway", sans-serif;
   color: #fff;
@@ -227,10 +242,12 @@ a:focus,
   margin-top: 0;
   margin-bottom: 10px;
 }
+
 .intro h1 span {
-  font-weight: 800;
-  color: #5ca9fb;
+  font-weight: 600;
+  color: #ffffff;
 }
+
 .intro p {
   color: #fff;
   font-size: 22px;
@@ -244,6 +261,31 @@ header .intro-text {
   padding-bottom: 200px;
   text-align: center;
 }
+
+/* Cost Estimate Section */
+
+.repair-cost-estimator-bg {
+  background-color: #5da1fc; /* Replace with actual image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-content {
+  background-color: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  max-height: 800px;
+  width: 100%;
+  max-width: 1200px;
+}
+
 /* Features Section */
 #features {
   background: #f6f6f6;
@@ -262,17 +304,42 @@ header .intro-text {
 }
 /* About Section */
 #about {
+  position: relative;
   padding: 100px 0;
+  background-image: url('/img/About-Us.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #fff;
+  overflow: hidden;
 }
+
+#about .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Adjust opacity for desired contrast */
+  z-index: 1; /* Sits between background and content */
+}
+
+#about .container {
+  position: relative;
+  z-index: 2; /* Brings content above the overlay */
+}
+
 #about h3 {
   font-size: 22px;
   margin: 0 0 20px;
 }
+
 #about h2 {
   position: relative;
   margin-bottom: 15px;
   padding-bottom: 15px;
 }
+
 #about h2::after {
   position: absolute;
   content: "";
@@ -282,12 +349,14 @@ header .intro-text {
   bottom: 0;
   left: 0;
 }
+
 #about .about-text li {
   margin-bottom: 6px;
   margin-left: 6px;
   list-style: none;
   padding: 0;
 }
+
 #about .about-text li:before {
   content: "\f00c";
   font-family: "FontAwesome";
@@ -296,6 +365,7 @@ header .intro-text {
   font-weight: 300;
   padding-right: 8px;
 }
+
 #about img {
   width: 520px;
   margin-top: 10px;
@@ -303,10 +373,12 @@ header .intro-text {
   border-right: 0;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
 }
+
 #about p {
   line-height: 24px;
   margin: 30px 0;
 }
+
 /* Services Section */
 #services {
   padding: 100px 0;
