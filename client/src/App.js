@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import HomePage from './components/HomePage';
+// import HomePage from './components/HomePage';
 import YouTubeVideos from './components/YouTubeVideos';
 import VideoDetails from './components/VideoDetails';
 import RepairCostEstimator from './components/RepairCostEstimator';
 import ProjectsGithub from './components/Projects-Github';
+import { Header } from "./components/header";
 import { About } from "./components/about";
 import { Services } from "./components/services";
 import { Gallery } from "./components/gallery";
@@ -30,7 +31,7 @@ function App() {
         <header className="App-header">
         {/* <Navigation /> */}
           <Routes>
-            <Route path="/" element={<HomePage API_KEY={API_KEY} channelId={channelId} videoType="all" />} />
+            <Route path="/" element={<Header data={landingPageData.Header} />} />
             <Route path="/all-videos" element={<YouTubeVideos API_KEY={API_KEY} channelId={channelId} videoType="all" />} />
             <Route path="/shorts" element={<YouTubeVideos API_KEY={API_KEY} channelId={channelId} videoType="short" />} />
             <Route path="/long-videos" element={<YouTubeVideos API_KEY={API_KEY} channelId={channelId} videoType="long" />} />

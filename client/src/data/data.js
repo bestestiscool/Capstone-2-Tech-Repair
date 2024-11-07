@@ -1,8 +1,8 @@
 const Data = {
   Header: {
-    title: "We are a Landing Page",
+    title: "Welcome to TechRepair Experts!",
     paragraph:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sed commodo nibh ante facilisis bibendum.",
+      "Your trusted partner for professional device repairs and cost estimation. From screen repairs to software recovery, we provide reliable solutions to keep your tech running smoothly and efficiently.",
   },
   About: {
     paragraph:
@@ -23,48 +23,48 @@ const Data = {
   Gallery: [
     {
       title: "Project Title",
-      largeImage: "img/portfolio/01-large.jpg",
-      smallImage: "img/portfolio/01-small.jpg",
+      largeImage: "img/portfolio/gallery/large/01-large.jpg",
+      smallImage: "img/portfolio/gallery/small/01-small.jpg",
     },
     {
       title: "Project Title",
-      largeImage: "img/portfolio/02-large.jpg",
-      smallImage: "img/portfolio/02-small.jpg",
+      largeImage: "img/portfolio/gallery/large/02-large.jpg",
+      smallImage: "img/portfolio/gallery/small/02-small.jpg",
     },
     {
       title: "Project Title",
-      largeImage: "img/portfolio/03-large.jpg",
-      smallImage: "img/portfolio/03-small.jpg",
+      largeImage: "img/portfolio/gallery/large/03-large.jpg",
+      smallImage: "img/portfolio/gallery/small/03-small.jpg",
     },
     {
       title: "Project Title",
-      largeImage: "img/portfolio/04-large.jpg",
-      smallImage: "img/portfolio/04-small.jpg",
+      largeImage: "img/portfolio/gallery/large/04-large.jpg",
+      smallImage: "img/portfolio/gallery/small/04-small.jpg",
     },
     {
       title: "Project Title",
-      largeImage: "img/portfolio/05-large.jpg",
-      smallImage: "img/portfolio/05-small.jpg",
+      largeImage: "img/portfolio/gallery/large/05-large.jpg",
+      smallImage: "img/portfolio/gallery/small/05-small.jpg",
     },
     {
       title: "Project Title",
-      largeImage: "img/portfolio/06-large.jpg",
-      smallImage: "img/portfolio/06-small.jpg",
+      largeImage: "img/portfolio/gallery/large/06-large.jpg",
+      smallImage: "img/portfolio/gallery/small/06-small.jpg",
     },
     {
       title: "Project Title",
-      largeImage: "img/portfolio/07-large.jpg",
-      smallImage: "img/portfolio/07-small.jpg",
+      largeImage: "img/portfolio/gallery/large/07-large.jpg",
+      smallImage: "img/portfolio/gallery/small/07-small.jpg",
     },
     {
       title: "Project Title",
-      largeImage: "img/portfolio/08-large.jpg",
-      smallImage: "img/portfolio/08-small.jpg",
+      largeImage: "img/portfolio/gallery/large/08-large.jpg",
+      smallImage: "img/portfolio/gallery/small/08-small.jpg",
     },
     {
       title: "Project Title",
-      largeImage: "img/portfolio/09-large.jpg",
-      smallImage: "img/portfolio/09-small.jpg",
+      largeImage: "img/portfolio/gallery/large/09-large.jpg",
+      smallImage: "img/portfolio/gallery/small/09-small.jpg",
     },
   ],
 
