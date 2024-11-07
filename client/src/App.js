@@ -10,7 +10,9 @@ import { About } from "./components/about";
 import { Services } from "./components/services";
 import { Gallery } from "./components/gallery";
 import { Contact } from "./components/contact";
+// import { Navigation } from "./components/navigation";
 import JsonData from "./data/data.js";
+import "./App.css";
 
 const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 const channelId = process.env.REACT_APP_CHANNEL_ID;
@@ -26,6 +28,7 @@ function App() {
       <div className="App">
         <Navbar />
         <header className="App-header">
+        {/* <Navigation /> */}
           <Routes>
             <Route path="/" element={<HomePage API_KEY={API_KEY} channelId={channelId} videoType="all" />} />
             <Route path="/all-videos" element={<YouTubeVideos API_KEY={API_KEY} channelId={channelId} videoType="all" />} />
