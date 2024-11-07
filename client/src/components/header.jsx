@@ -1,6 +1,6 @@
 import React from "react";
 
-const Homepage = (props) => {
+export const Header = (props) => {
   return (
     <header id="header">
       <div className="intro">
@@ -27,5 +27,3 @@ const Homepage = (props) => {
     </header>
   );
 };
-export default HomePage;
-
