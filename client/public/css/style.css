@@ -265,7 +265,7 @@ header .intro-text {
 /* Cost Estimate Section */
 
 .repair-cost-estimator-bg {
-  background-image: url('/img/videos-bg.jpg'); /* Replace with actual image path */
+  background-color: #5da1fc; /* Replace with actual image path */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

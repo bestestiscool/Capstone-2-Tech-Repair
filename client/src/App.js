@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
@@ -6,12 +6,21 @@ import YouTubeVideos from './components/YouTubeVideos';
 import VideoDetails from './components/VideoDetails';
 import RepairCostEstimator from './components/RepairCostEstimator';
 import ProjectsGithub from './components/Projects-Github';
-import AboutUs from './components/AboutUs';
+import { About } from "./components/about";
+import { Services } from "./components/services";
+import { Gallery } from "./components/gallery";
+import { Contact } from "./components/contact";
+import JsonData from "./data/data.js";
 
 const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 const channelId = process.env.REACT_APP_CHANNEL_ID;
 
 function App() {
+  const [landingPageData, setLandingPageData] = useState({});
+  useEffect(() => {
+    setLandingPageData(JsonData);
+  }, []);
+
   return (
     <Router>
       <div className="App">
@@ -25,7 +34,10 @@ function App() {
             <Route path="/video/:id" element={<VideoDetails API_KEY={API_KEY} />} />
             <Route path="/repair-cost-estimator" element={<RepairCostEstimator />} />
             <Route path="/portfolio" element={<ProjectsGithub />} />
-            <Route path="/AboutUs" element={<AboutUs />} />
+            <Route path="/about-us" element={<About data={landingPageData.About} />} />
+            <Route path="/services" element={<Services data={landingPageData.Services} />} />
+            <Route path="/gallery" element={<Gallery data={landingPageData.Gallery} />} />
+            <Route path="/contact" element={<Contact data={landingPageData.Contact} />} />
           </Routes>
         </header>
       </div>
@@ -34,4 +46,3 @@ function App() {
 }
 
 export default App;
-
