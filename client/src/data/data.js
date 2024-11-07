@@ -22,47 +22,47 @@ const Data = {
   },
   Gallery: [
     {
-      title: "Project Title",
+      title: "Thermal paste Application",
       largeImage: "img/portfolio/gallery/large/01-large.jpg",
       smallImage: "img/portfolio/gallery/small/01-small.jpg",
     },
     {
-      title: "Project Title",
+      title: "Ram & SSD Upgrade",
       largeImage: "img/portfolio/gallery/large/02-large.jpg",
       smallImage: "img/portfolio/gallery/small/02-small.jpg",
     },
     {
-      title: "Project Title",
+      title: "Battery Replacement",
       largeImage: "img/portfolio/gallery/large/03-large.jpg",
       smallImage: "img/portfolio/gallery/small/03-small.jpg",
     },
     {
-      title: "Project Title",
+      title: "HDD Fix",
       largeImage: "img/portfolio/gallery/large/04-large.jpg",
       smallImage: "img/portfolio/gallery/small/04-small.jpg",
     },
     {
-      title: "Project Title",
+      title: "HDD Fix",
       largeImage: "img/portfolio/gallery/large/05-large.jpg",
       smallImage: "img/portfolio/gallery/small/05-small.jpg",
     },
     {
-      title: "Project Title",
+      title: "Phone disassembly",
       largeImage: "img/portfolio/gallery/large/06-large.jpg",
       smallImage: "img/portfolio/gallery/small/06-small.jpg",
     },
     {
-      title: "Project Title",
+      title: "Iphone backglass Repair",
       largeImage: "img/portfolio/gallery/large/07-large.jpg",
       smallImage: "img/portfolio/gallery/small/07-small.jpg",
     },
     {
-      title: "Project Title",
+      title: "Screen Replacement",
       largeImage: "img/portfolio/gallery/large/08-large.jpg",
       smallImage: "img/portfolio/gallery/small/08-small.jpg",
     },
     {
-      title: "Project Title",
+      title: "Motherboard Repair",
       largeImage: "img/portfolio/gallery/large/09-large.jpg",
       smallImage: "img/portfolio/gallery/small/09-small.jpg",
     },

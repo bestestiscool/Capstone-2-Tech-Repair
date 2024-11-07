@@ -8,9 +8,9 @@ export const Gallery = (props) => {
         <div className="section-title">
           <h2>Gallery</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed
-            dapibus leonec.
+            Welcome to our repair gallery! Here, you can explore some of our recent projects and get a closer look at the range of repairs and upgrades we offer. From thermal paste applications and SSD upgrades to battery replacements and screen repairs, we take pride in delivering high-quality service and precision. Click on any image to view the details and see our work up close.
           </p>
+
         </div>
         <div className="row">
           <div className="portfolio-items">
