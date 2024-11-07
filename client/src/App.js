@@ -37,7 +37,7 @@ function App() {
             <Route path="/video/:id" element={<VideoDetails API_KEY={API_KEY} />} />
             <Route path="/repair-cost-estimator" element={<RepairCostEstimator />} />
             <Route path="/portfolio" element={<ProjectsGithub />} />
-            <Route path="/about-us" element={<About data={landingPageData.About} />} />
+            <Route path="/about" element={<About data={landingPageData.About} />} />
             <Route path="/services" element={<Services data={landingPageData.Services} />} />
             <Route path="/gallery" element={<Gallery data={landingPageData.Gallery} />} />
             <Route path="/contact" element={<Contact data={landingPageData.Contact} />} />
