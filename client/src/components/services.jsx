@@ -7,8 +7,7 @@ export const Services = (props) => {
         <div className="section-title">
           <h2>Our Services</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed
-            dapibus leonec.
+          Ready to bring your device back to life? Contact us or drop by our shop to speak with a technician. We'll provide a quick diagnosis and get started on your repair as soon as you’re ready. TechRepair Experts is here to make device repairs simple and reliable.
           </p>
         </div>
         <div className="row">
