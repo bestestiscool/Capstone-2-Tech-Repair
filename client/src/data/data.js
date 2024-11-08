@@ -112,9 +112,9 @@ const Data = {
   ],
 
   Contact: {
-    address: "4321 California St, San Francisco, CA 12345 ",
-    phone: "+1 123 456 1234",
-    email: "info@company.com",
+    address: "Bathurst St, Toronto, ON M2R 1Z6 ",
+    phone: "+1 437 655 5645",
+    email: "tech.duels13@gmail.com",
     facebook: "fb.com",
     twitter: "twitter.com",
     youtube: "youtube.com",
