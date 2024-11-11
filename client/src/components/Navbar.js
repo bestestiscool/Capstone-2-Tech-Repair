@@ -36,9 +36,9 @@ const Navbar = () => {
             <li>
               <Link to="/repair-cost-estimator">Cost Estimate</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/portfolio">Projects</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/about">About Us</Link>
             </li>
