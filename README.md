@@ -33,10 +33,6 @@ This project consists of four main components:
 - **Search Functionality**: Users can search videos by title.
 - **Responsive Layout**: Videos are displayed in a neat 3x4 grid layout on larger screens and adapt to mobile devices.
 
-### GitHub Portfolio Showcase
-- **GitHub Integration**: Fetches the latest version of my projects from GitHub, allowing users to easily access the code.
-- **Clean Layout**: Utilizes animations and FontAwesome icons for an appealing presentation.
-
 ### Additional Pages
 
 #### Contact
