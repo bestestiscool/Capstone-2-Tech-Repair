@@ -1,4 +1,3 @@
-Here’s a basic README template for your project in markdown format. You can adjust and expand it based on your specific project needs.
 
 ---
 # Check out the site at https://techrepair-experts.onrender.com/
