@@ -31,6 +31,7 @@ function App() {
         <header className="App-header">
         {/* <Navigation /> */}
           <Routes>
+            
             <Route path="/" element={<Header data={landingPageData.Header} />} />
             <Route path="/all-videos" element={<YouTubeVideos API_KEY={API_KEY} channelId={channelId} videoType="all" />} />
             <Route path="/shorts" element={<YouTubeVideos API_KEY={API_KEY} channelId={channelId} videoType="short" />} />

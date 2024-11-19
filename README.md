@@ -1,22 +1,31 @@
 Here’s a basic README template for your project in markdown format. You can adjust and expand it based on your specific project needs.
 
 ---
-# Check out the site at https://techrepair-experts.onrender.com/Repair-Cost-Estimator
+# Check out the site at https://techrepair-experts.onrender.com/
 
 # 📱 Repair Cost Estimator & YouTube Video Showcase Project
 
-This project consists of two main components:
-- **Repair Cost Estimator**: A tool for estimating repair costs based on device type, model, and the issue.
-- **YouTube Video Showcase**: A page that displays a gallery of YouTube videos from a specific channel, along with video details.
-- **Github Portfolio Showcase**: A page that displays a list of the available projects I have worked on.
+Check out the live site at [https://techrepair-experts.onrender.com/](https://techrepair-experts.onrender.com/)
+
+## 🚀 Project Overview
+
+This project consists of four main components:
+1. **Repair Cost Estimator**: A tool for estimating repair costs based on device type, model, and the issue.
+2. **YouTube Video Showcase**: A page that displays a gallery of YouTube videos from a specific channel, along with video details.
+3. **GitHub Portfolio Showcase**: A page that displays a list of the available projects I have worked on.
+4. **Additional Pages**:
+   - **Contact**: Allows users to get in touch.
+   - **About Us**: Provides information about the company or project.
+   - **Services**: Details the services offered.
+   - **Gallery**: A blog-like page showcasing images and articles
 
 ## 🚀 Features
 
 ### Repair Cost Estimator
-- **Multi-Step Form**: Users can choose the device type, model, and the issue they are facing. The cost is fetched from a PostgreSQL database.
-- **Progress Bar**: A progress bar visually represents the user’s progress through the form.
-- **Animation**: The form transitions smoothly between steps with animations.
-- **Dynamic Cost Calculation**: Costs are fetched from the backend based on the user's input.
+- **Multi-Step Form**: Users can choose the device type, model, and the issue they are facing. The cost is fetched from a PostgreSQL database using Prisma.
+- **Progress Bar**: Visually represents the user’s progress through the form.
+- **Animations**: Smooth transitions between steps enhance user experience.
+- **Dynamic Cost Calculation**: Real-time cost fetching from the backend based on user input.
 
 ### YouTube Video Showcase
 - **YouTube API Integration**: Fetches videos from a specific YouTube channel.
@@ -26,21 +35,41 @@ This project consists of two main components:
 - **Responsive Layout**: Videos are displayed in a neat 3x4 grid layout on larger screens and adapt to mobile devices.
 
 ### GitHub Portfolio Showcase
-- **GitHub Intergration**: Fetches the latest version of my projects from GitHub. Allows the user to easily access the code.
-- **Clean Layout**: Displays animations and buttons created with icons from awesomefonticons
+- **GitHub Integration**: Fetches the latest version of my projects from GitHub, allowing users to easily access the code.
+- **Clean Layout**: Utilizes animations and FontAwesome icons for an appealing presentation.
 
-## 🛠️ Technologies Used
+### Additional Pages
 
-- **Frontend**: 
+#### Contact
+- **Contact Form**: Allows users to send messages or inquiries.
+- **Map Integration**: Displays the company’s location via an embedded map.
+
+#### About Us
+- **Company Information**: Provides details about the mission, vision, and team members.
+- **Timeline**: Showcases the project's or company's milestones.
+
+#### Services
+- **Service Listings**: Details of the services offered, including descriptions and pricing.
+- **Service Categories**: Organizes services into categories for easier navigation.
+
+#### Gallery
+- **Blog-like Posts**: Displays images and articles related to tech repairs.
+- **Image Slider**: Showcases featured images with descriptions.
+
+
+## 🧩 Technologies Used
+
+- **Frontend**:
   - React.js
   - Bootstrap
   - FontAwesome
   - Animate.css
-- **Backend**: 
+- **Backend**:
   - Express.js
-  - Sequelize ORM
+  - Prisma
   - PostgreSQL Database
-- **YouTube API**: To fetch video details and data.
+- **APIs**:
+  - YouTube API: To fetch video details and data.
 
 
 ## ⚙️ Setup Instructions
@@ -53,74 +82,64 @@ This project consists of two main components:
 
 ### Installation
 
-1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
-   ```
+1. **Clone the Repository**:
 
-2. Install dependencies for both **client** and **server**:
+    ```bash
+    git clone https://github.com/your-username/your-repo.git
+    cd your-repo
+    ```
 
-   ```bash
-   cd client
-   npm install
-   cd ../server
-   npm install
-   ```
+2. **Install Dependencies for Both Client and Server**:
 
-3. Configure PostgreSQL and create the necessary tables using Sequelize:
+    ```bash
+    # Install client dependencies
+    cd client
+    npm install
 
-   ```bash
-   npx sequelize-cli db:migrate
-   ```
+    # Install server dependencies
+    cd ../server
+    npm install
+    ```
 
-4. Seed the database with repair cost data:
+3. **Configure PostgreSQL and Set Up Prisma**:
 
-   ```bash
-   npx sequelize-cli db:seed:all
-   ```
+    - **Initialize Prisma**:
 
-5. Run the **server**:
+      ```bash
+      npx prisma init
+      ```
 
-   ```bash
-   cd server
-   npm start
-   ```
+    - **Set Up Your Prisma Schema**:
 
-6. Run the **client**:
+      Edit the `prisma/schema.prisma` file to define your data models. Ensure it includes models for the Repair Cost Estimator and any other necessary components.
 
-   ```bash
-   cd client
-   npm start
-   ```
+    - **Run Prisma Migrations**:
 
-7. Access the frontend app at [http://localhost:3000](http://localhost:3000).
+      ```bash
+      npx prisma migrate dev --name init
+      ```
 
-## 🔑 Environment Variables
+    - **Seed the Database with Repair Cost Data (If Applicable)**:
 
-Create a `.env` file in the root of the project with the following content:
+      ```bash
+      npx prisma db seed
+      ```
 
-```bash
-YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY
-DATABASE_URL=YOUR_DATABASE_URL
-```
+4. **Run the Server**:
 
-## 🧪 Testing
+    ```bash
+    cd server
+    npm start
+    ```
 
-To run tests:
+5. **Run the Client**:
 
-```bash
-npm test
-```
+    ```bash
+    cd client
+    npm start
+    ```
 
-## ✨ Future Enhancements
+6. **Access the Frontend App**:
 
-- Add more animations and illustrations for a better user experience.
-- Add more device types, models, and repair issues to the database.
-- Enable sorting and filtering options in the YouTube video gallery.
-
-
----
-
-Feel free to modify this README to suit your needs!
+    Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
