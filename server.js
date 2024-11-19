@@ -52,19 +52,19 @@ app.use(express.json());  // Middleware to parse JSON bodies
 // API Routes
 
 // Get all projects
-app.get('/api/projects', async (req, res) => {
-  try {
-    const projects = await prisma.project.findMany();
-    console.log("Projects from DB:", projects);
-    if (!projects.length) {
-      return res.status(404).json({ message: 'No projects found.' });
-    }
-    res.json(projects);
-  } catch (err) {
-    console.error('Error fetching projects:', err.message);
-    return res.status(500).json({ error: 'Failed to fetch projects', details: err.message });
-  }
-});
+// app.get('/api/projects', async (req, res) => {
+//   try {
+//     const projects = await prisma.project.findMany();
+//     console.log("Projects from DB:", projects);
+//     if (!projects.length) {
+//       return res.status(404).json({ message: 'No projects found.' });
+//     }
+//     res.json(projects);
+//   } catch (err) {
+//     console.error('Error fetching projects:', err.message);
+//     return res.status(500).json({ error: 'Failed to fetch projects', details: err.message });
+//   }
+// });
 
 // Get all repair costs
 app.get('/api/repair-costs', async (req, res) => {
