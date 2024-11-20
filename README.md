@@ -11,8 +11,7 @@ Check out the live site at [https://techrepair-experts.onrender.com/](https://te
 This project consists of four main components:
 1. **Repair Cost Estimator**: A tool for estimating repair costs based on device type, model, and the issue.
 2. **YouTube Video Showcase**: A page that displays a gallery of YouTube videos from a specific channel, along with video details.
-3. **GitHub Portfolio Showcase**: A page that displays a list of the available projects I have worked on.
-4. **Additional Pages**:
+3. **Additional Pages**:
    - **Contact**: Allows users to get in touch.
    - **About Us**: Provides information about the company or project.
    - **Services**: Details the services offered.
